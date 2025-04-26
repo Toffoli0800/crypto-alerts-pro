@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseX - Checkout</title>
+    <link rel="stylesheet" href="../../public/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 PulseX - Payment</h1>
+            <p>Choose your payment method</p>
+        </header>
+
+        <main>
+            <div class="payment-options">
+                <ul>
+                    <li><strong>PIX:</strong> Send to key: <span style="color:#00f5d4;">pulseX@example.com</span></li>
+                    <li><strong>Credit Card:</strong> Pay using Visa, MasterCard, Amex</li>
+                    <li><strong>Crypto:</strong> Wallet: <span style="color:#00f5d4;">0xYourCryptoWalletAddress</span></li>
+                </ul>
+
+                <button id="confirm-payment" style="padding:10px 20px; margin-top:20px; background-color:#00f5d4; color:#000; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">
+                    Confirm Payment
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('confirm-payment').addEventListener('click', function() {
+            localStorage.setItem('paymentConfirmed', 'true');
+            window.location.href = './login.html';
+        });
+    </script>
+</body>
+</html>

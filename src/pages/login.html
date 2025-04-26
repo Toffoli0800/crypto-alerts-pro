@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseX - Login</title>
+    <link rel="stylesheet" href="../../public/css/style.css">
+    <script>
+        if (localStorage.getItem('paymentConfirmed') !== 'true') {
+            window.location.href = './checkout.html';
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 PulseX</h1>
+            <p>Access your Crypto Detector</p>
+        </header>
+
+        <main>
+            <form id="login-form">
+                <input type="text" id="username" placeholder="Username" required style="padding:10px; margin:10px; width:80%; max-width:300px; border-radius:8px; border:none;">
+                <br>
+                <input type="password" id="password" placeholder="Password" required style="padding:10px; margin:10px; width:80%; max-width:300px; border-radius:8px; border:none;">
+                <br>
+                <button type="submit" style="padding:10px 20px; margin:10px; background-color:#00f5d4; color:#000; border:none; border-radius:8px; cursor:pointer; font-weight:bold;">Login</button>
+            </form>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            if (username && password) {
+                localStorage.setItem('loggedIn', 'true');
+                window.location.href = './dashboard.html';
+            } else {
+                alert('Invalid login!');
+            }
+        });
+    </script>
+</body>
+</html>

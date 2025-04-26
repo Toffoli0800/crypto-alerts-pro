@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PulseX - Payment</title>
+    <link rel="stylesheet" href="../../public/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 PulseX</h1>
+            <p>Complete Your Payment</p>
+        </header>
+
+        <main>
+            <h2>Choose your payment method</h2>
+            <div class="payment-options">
+                <button onclick="confirmPayment('Pix')">Pay with Pix</button>
+                <button onclick="confirmPayment('Credit Card')">Pay with Credit Card</button>
+                <button onclick="confirmPayment('Cryptocurrencies')">Pay with Cryptocurrencies</button>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function confirmPayment(method) {
+            alert('Payment via ' + method + ' confirmed!');
+            window.location.href = "../../src/pages/dashboard.html";
+        }
+    </script>
+</body>
+</html>
