@@ -1,122 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PulseX - Dashboard</title>
-  <link rel="stylesheet" href="../../public/css/style.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (!user || localStorage.getItem('loggedIn') !== 'true') {
-      window.location.href = './login.html';
-    } else {
-      const paidAt = user.paidAt;
-      const now = Date.now();
-      const diff = now - paidAt;
-
-      if (diff > 30 * 24 * 60 * 60 * 1000) {
-        alert('Subscription expired. Please renew your access.');
-        localStorage.setItem('loggedIn', 'false');
-        window.location.href = './login.html';
-      }
-    }
-  </script>
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
   <div class="container">
-    <header>
-      <h1>🚀 PulseX</h1>
-      <p>Real-Time Crypto Pump, Dump, and Signal Detector</p>
-    </header>
+    <h1>PulseX Dashboard</h1>
+    <div class="navbar">
+      <a href="dashboard.html"><button>Market</button></a>
+      <a href="history.html"><button>Pump & Dump History</button></a>
+      <a href="signals.html"><button>Perpetual Signals</button></a>
+    </div>
 
-    <main>
-      <div id="tabs">
-        <button onclick="showTab('market')">Market</button>
-        <button onclick="showTab('history')">Pump & Dump History</button>
-        <button onclick="showTab('signals')">Perpetual Signals</button>
+    <div id="market-section">
+      <h2>Market</h2>
+      <div id="table-wrapper">
+        <table id="crypto-table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Price</th>
+              <th>Change (1m)</th>
+              <th>Change (3m)</th>
+              <th>Change (5m)</th>
+              <th>Change (15m)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Market data will appear here -->
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <!-- Market Tab -->
-      <div id="market" class="tab-content">
-        <div id="table-wrapper">
-          <table id="crypto-table">
-            <thead>
-              <tr>
-                <th>Symbol</th>
-                <th>Price</th>
-                <th>RSI</th>
-                <th>Change 1m</th>
-                <th>Change 3m</th>
-                <th>Change 5m</th>
-                <th>Change 15m</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+    <div id="history-section" style="display:none;">
+      <h2>Pump & Dump History</h2>
+      <div id="history-wrapper">
+        <table id="history-table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Type</th>
+              <th>Price Before</th>
+              <th>Price After</th>
+              <th>Percentage</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- History data will appear here -->
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <!-- History Tab -->
-      <div id="history" class="tab-content" style="display: none;">
-        <div id="history-wrapper">
-          <table id="history-table">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Symbol</th>
-                <th>% Change</th>
-                <th>Old Price</th>
-                <th>New Price</th>
-                <th>Graph</th>
-                <th>Date</th>
-                <th>Time</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
+    <div id="signals-section" style="display:none;">
+      <h2>Perpetual Signals</h2>
+      <div id="signals-wrapper">
+        <table id="signals-table">
+          <thead>
+            <tr>
+              <th>Symbol</th>
+              <th>Side</th>
+              <th>Entry Price</th>
+              <th>Target</th>
+              <th>Stop Loss</th>
+              <th>Date & Time</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- Signals data will appear here -->
+          </tbody>
+        </table>
       </div>
+    </div>
 
-      <!-- Signals Tab -->
-      <div id="signals" class="tab-content" style="display: none;">
-        <div id="signals-wrapper">
-          <h2>Trading Signals</h2>
-
-          <!-- Admin Panel -->
-          <div id="admin-panel" style="text-align: center; margin-bottom: 20px;">
-            <h3>PulseX Signal Panel</h3>
-            <p>Active Signals: <span id="active-count">0</span></p>
-            <p>Target Hits: <span id="target-count">0</span></p>
-            <p>Stop Losses: <span id="stop-count">0</span></p>
-            <p>Winrate: <span id="winrate">0%</span></p>
-          </div>
-
-          <table id="signals-table">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Entry</th>
-                <th>Target 1</th>
-                <th>Target 2</th>
-                <th>Stop Loss</th>
-                <th>Trend</th>
-                <th>Volatility</th>
-                <th>Confidence</th>
-                <th>Volume Trend</th>
-                <th>R/R</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-          </table>
-        </div>
-      </div>
-    </main>
   </div>
 
-  <script src="../dashboard.js"></script>
-  <script src="../signals.js"></script>
+  <script src="dashboard.js"></script>
 </body>
 </html>
