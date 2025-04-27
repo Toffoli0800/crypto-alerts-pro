@@ -1,38 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PulseX - Crypto Pump Detector</title>
-    <link rel="stylesheet" href="public/css/style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PulseX - Dashboard</title>
+  <link rel="stylesheet" href="../../public/css/style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user || localStorage.getItem('loggedIn') !== 'true') {
+      window.location.href = './login.html';
+    } else {
+      const paidAt = user.paidAt;
+      const now = Date.now();
+      const diff = now - paidAt;
+
+      if (diff > 30 * 24 * 60 * 60 * 1000) {
+        alert('Subscription expired. Please renew your access.');
+        localStorage.setItem('loggedIn', 'false');
+        window.location.href = './login.html';
+      }
+    }
+  </script>
 </head>
+
 <body>
-    <div class="container">
-        <header>
-            <h1>🚀 PulseX</h1>
-            <p>Real-Time Monitoring of Pumps, Dumps, and Signals!</p>
-        </header>
+  <div class="container">
+    <header>
+      <h1>🚀 PulseX</h1>
+      <p>Real-Time Crypto Pump, Dump, and Signal Detector</p>
+    </header>
 
-        <main>
-            <h2>Create your account to access!</h2>
-            <form id="registerForm">
-                <input type="text" placeholder="Full Name" required>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
-                <button type="submit">Pay and Create Account</button>
-            </form>
+    <main>
+      <div id="tabs">
+        <button onclick="showTab('market')">Market</button>
+        <button onclick="showTab('history')">Pump & Dump History</button>
+        <button onclick="showTab('signals')">Perpetual Signals</button>
+      </div>
 
-            <div class="payment-options">
-                <p><strong>Payment Methods:</strong></p>
-                <ul>
-                    <li>💳 Credit Card</li>
-                    <li>🏦 Pix</li>
-                    <li>🪙 Cryptocurrencies</li>
-                </ul>
-            </div>
-        </main>
-    </div>
+      <!-- Market Tab -->
+      <div id="market" class="tab-content">
+        <div id="table-wrapper">
+          <table id="crypto-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Price</th>
+                <th>RSI</th>
+                <th>Change 1m</th>
+                <th>Change 3m</th>
+                <th>Change 5m</th>
+                <th>Change 15m</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
 
-    <script src="src/app.js"></script>
+      <!-- History Tab -->
+      <div id="history" class="tab-content" style="display: none;">
+        <div id="history-wrapper">
+          <table id="history-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Symbol</th>
+                <th>% Change</th>
+                <th>Old Price</th>
+                <th>New Price</th>
+                <th>Graph</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Signals Tab -->
+      <div id="signals" class="tab-content" style="display: none;">
+        <div id="signals-wrapper">
+          <h2>Trading Signals</h2>
+
+          <!-- Admin Panel -->
+          <div id="admin-panel" style="text-align: center; margin-bottom: 20px;">
+            <h3>PulseX Signal Panel</h3>
+            <p>Active Signals: <span id="active-count">0</span></p>
+            <p>Target Hits: <span id="target-count">0</span></p>
+            <p>Stop Losses: <span id="stop-count">0</span></p>
+            <p>Winrate: <span id="winrate">0%</span></p>
+          </div>
+
+          <table id="signals-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Entry</th>
+                <th>Target 1</th>
+                <th>Target 2</th>
+                <th>Stop Loss</th>
+                <th>Trend</th>
+                <th>Volatility</th>
+                <th>Confidence</th>
+                <th>Volume Trend</th>
+                <th>R/R</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../dashboard.js"></script>
+  <script src="../signals.js"></script>
 </body>
 </html>
